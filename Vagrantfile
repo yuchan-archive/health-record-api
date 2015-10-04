@@ -7,7 +7,10 @@ chmod +x /usr/local/bin/docker-compose
 SCRIPT
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.provision "docker"
-  config.vm.provision "shell", inline: $script
+  config.vm.box = 'phusion/ubuntu-14.04-amd64'
+  config.vm.provision 'docker'
+  config.vm.provision 'shell', inline: $script
+  config.vm.synced_folder 'src/', '/src/'
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+  config.vm.network 'forwarded_port', guest: 3000, host: 3000
 end

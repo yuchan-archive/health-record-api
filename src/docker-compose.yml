@@ -1,0 +1,13 @@
+db:
+  image: postgres
+cache:
+  image: redis
+web:
+  extends:
+    file: webapp.yml
+    service: web
+  environment:
+    - APP_SETTINGS=config.ProductionConfig
+  links:
+    - db
+    - cache
